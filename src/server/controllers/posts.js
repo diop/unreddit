@@ -36,4 +36,14 @@ module.exports = app => {
             })
     })
 
+    app.get('/n/:unsubreddit', function(request, response) {
+        Post.find({ subunreddit: request.params.unsubreddit })
+            .then(posts => {
+                response.render('posts-index', { posts })
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    })
+
 }

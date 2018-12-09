@@ -8,7 +8,9 @@
                     <a href='/posts/<%= posts[i]._id %>' class='lead'><%= posts[i].title %></a>
                 </div>
                 <a href="<%= posts[i].url %>" target='_blank'><%= posts[i].url %></a>
-                <div class='text-right'><%= posts[i].subunreddit %></div>
+                <div class='text-right'>
+                    <a href='/s/<%= posts[i].subunreddit %>'><%= posts[i].subunreddit %></a>
+                </div>
             </li>
         <% } %>
     </div>

@@ -25,8 +25,10 @@ app.set('views', path.join(__dirname, 'views'))
 
 app.use(express.static(path.join(__dirname, 'public')))
 
-require('./server/controllers/posts')(app)
 require('./data/unreddit-db')
+require('./server/controllers/posts')(app)
+require('./server/controllers/comments')(app)
+
 
 app.listen(port, () => console.log(`Listening on port ${port}...`))
 
