@@ -4,8 +4,11 @@
     <div class = 'col-sm-8 col.sm-offset'>
         <% for (var i = 0; i < posts.length; i++) { %> 
             <li class='list-group-item'>
-                <div class='lead'><a href='/posts/<%= posts[i]._id %>' class='lead'><%= posts[i].title %></a></div>
-                <a href="<%= posts[i].url %>"><%= posts[i].url %></a>
+                <div class='lead'>
+                    <a href='/posts/<%= posts[i]._id %>' class='lead'><%= posts[i].title %></a>
+                </div>
+                <a href="<%= posts[i].url %>" target='_blank'><%= posts[i].url %></a>
+                <div class='text-right'><%= posts[i].subunreddit %></div>
             </li>
         <% } %>
     </div>
