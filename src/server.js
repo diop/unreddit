@@ -28,6 +28,17 @@ app.use(express.static(path.join(__dirname, 'public')))
 require('./server/controllers/posts')(app)
 require('./data/unreddit-db')
 
+console.log('Javascript sanity check')
+app.get('/', (request, response) => {
+    Post.find()
+    .then(posts => {
+        console.log(posts)
+        response.render('posts-index', { posts })
+    }).catch((error) => {
+        response.send(error.message)
+    })
+})
+
 app.listen(port, () => console.log(`Listening on port ${port}...`))
 
 module.exports = app
