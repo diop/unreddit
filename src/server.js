@@ -28,12 +28,12 @@ app.use(express.static(path.join(__dirname, 'public')))
 require('./server/controllers/posts')(app)
 require('./data/unreddit-db')
 
-console.log('Javascript sanity check')
+console.log('sanity check')
 app.get('/', (request, response) => {
     Post.find()
     .then(posts => {
         console.log(posts)
-        response.render('posts-index', { posts })
+        response.render('posts-index', { posts: posts })
     }).catch((error) => {
         response.send(error.message)
     })
