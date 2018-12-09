@@ -2,17 +2,6 @@ const Post = require('../../models/post')
 
 module.exports = app => {
 
-    // app.get('/', (request, response) => {
-    //     Post.find({})
-    //         .then(posts => {
-    //             console.log(posts)
-    //             response.render('posts-index', { posts })
-    //         })
-    //         .catch(error => {
-    //             console.log(error.message)
-    //         })
-    // })
-
     app.get('/posts', (request, response) => {
         Post.find({})
             .then(posts => {
@@ -34,6 +23,17 @@ module.exports = app => {
         post.save((error, post) => {
             return response.redirect(`/`)
         })
+    })
+
+    app.get('/posts/:id', (request, response) => {
+        const id = request.params.id
+        Post.findById(id)
+            .then(post => {
+                response.render('post-show', { post })
+            })
+            .catch(error => {
+                console.log(error.message)
+            })
     })
 
 }

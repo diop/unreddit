@@ -1,11 +1,14 @@
 <%- include( 'partials/header' ) %>
 
-<div class="container">
-    <% for (var i = 0; i < posts.length; i++) { %> 
-        <li>
-            <strong><%= posts[i].title %></strong> - <%= posts[i].url %> - <%= posts[i].summary %>
-        </li>
-    <% } %>
+<div class='row>
+    <div class = 'col-sm-8 col.sm-offset'>
+        <% for (var i = 0; i < posts.length; i++) { %> 
+            <li class='list-group-item'>
+                <div class='lead'><a href='/posts/<%= posts[i]._id %>' class='lead'><%= posts[i].title %></a></div>
+                <a href="<%= posts[i].url %>"><%= posts[i].url %></a>
+            </li>
+        <% } %>
+    </div>
 </div>
 
 <%- include( 'partials/footer' ) %>
