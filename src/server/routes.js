@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const morgan = require('morgan')
+// const morgan = require('morgan')
 
 const home = require('routes/home')
 const posts = require('routes/posts')
