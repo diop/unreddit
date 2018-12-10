@@ -2,6 +2,8 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
+var cookieParser = require('cookie-parser')
+const jwt = require('jsonwebtoken')
 const ejs = require('ejs')
 const path = require('path')
 const expressValidator = require('express-validator')
@@ -14,6 +16,8 @@ const mongoose = require('mongoose')
 const schema = mongoose.Schema
 const Post = ('./models/post')
 const Comment = ('./models/comment')
+
+app.use(cookieParser())
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
@@ -28,7 +32,6 @@ require('./data/unreddit-db')
 require('./server/controllers/auth')(app)
 require('./server/controllers/posts')(app)
 require('./server/controllers/comments')(app)
-
 
 app.listen(port, () => console.log(`Listening on port ${port}...`))
 

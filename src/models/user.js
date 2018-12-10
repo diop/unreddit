@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
-const Schema = mongoose.Schema 
+const Schema = mongoose.Schema
+const bcrypt = require('bcryptjs')
 
 const UserSchema  = new Schema({
     createdAt: { type: Date },
@@ -26,5 +27,12 @@ UserSchema.pre('save', function(next) {
         })
     })
 })
+
+// Need to use function to enable this.password to work.
+UserSchema.methods.comparePassword = function(password, done) {
+    bcrypt.compare(password, this.password, (error, isMatch) => {
+        done(error, isMatch)
+    })
+}
 
 module.exports = mongoose.model('User', UserSchema)
