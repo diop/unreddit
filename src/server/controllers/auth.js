@@ -4,6 +4,10 @@ module.exports = app => {
         response.render('sign-up')
     })
 
+    app.get('/login', (request, response ) => {
+        response.render('login')
+    })
+
     app.post('/sign-up', (request, response) => {
         const user = new User(request.body)
 
