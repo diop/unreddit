@@ -1,7 +1,6 @@
 require('dotenv').config()
 const express = require('express')
 const app = express()
-const router = express.Router()
 const bodyParser = require('body-parser')
 const ejs = require('ejs')
 const path = require('path')
@@ -26,6 +25,7 @@ app.set('views', path.join(__dirname, 'views'))
 app.use(express.static(path.join(__dirname, 'public')))
 
 require('./data/unreddit-db')
+require('./server/controllers/auth')(app)
 require('./server/controllers/posts')(app)
 require('./server/controllers/comments')(app)
 
