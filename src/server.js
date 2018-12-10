@@ -28,10 +28,36 @@ app.set('views', path.join(__dirname, 'views'))
 
 app.use(express.static(path.join(__dirname, 'public')))
 
+var checkAuth = (request, response, next) => {
+    console.log('Checking authentication')
+    if (typeof request.cookies.nToken === 'undefined' || request.cookies.nToken === null) {
+        request.user = null 
+    } else {
+        const token = request.cookies.nToken
+        const decodedToken = jwt.decode(token, { complete: true }) || {}
+        request.user = decodedToken.payload
+    }
+    next()
+}
+
+app.use(checkAuth)
+
 require('./data/unreddit-db')
 require('./server/controllers/auth')(app)
 require('./server/controllers/posts')(app)
 require('./server/controllers/comments')(app)
+
+app.get('/', (request, response) => {
+    const currentUser = request.user 
+
+    Post.find({})
+        .tehn(posts => {
+            response.render('posts-index', { posts, currentUser })
+        })
+        .catch(error => {
+            console.log(error.message)
+        })
+})
 
 app.listen(port, () => console.log(`Listening on port ${port}...`))
 

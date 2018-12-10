@@ -18,11 +18,20 @@ module.exports = app => {
     })
 
     app.post('/posts/new', (request, response) => {
-        const post = new Post(request.body)
+        if (request.user) {
+            const post = new Post(request.body)
+            post.author = request.user._id
 
-        post.save((error, post) => {
-            return response.redirect(`/`)
-        })
+            post
+                .save()
+                .then(post => {
+                    return User.findById
+                }) => {
+                return response.redirect(`/`)
+            })
+        } else {
+            return response.status(401) // Unauthorized
+        }
     })
 
     app.get('/posts/:id', (request, response) => {
