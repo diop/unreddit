@@ -1,4 +1,12 @@
 const Post = require('../src/models/post')
+const chai = require('chai')
+const chaiHttp = require('chai-http')
+const server = require('../src/server')
+const should = chai.should()
+chai.use(chaiHttp)
+
+const agent = chai.request.agent(server)
+
 const post = {
     title: 'post title',
     url: 'https://www.makeschool.com',
@@ -8,7 +16,7 @@ const post = {
 before(done => {
     agent
         .post('login')
-        .send({ username: testone, password: 'password'})
+        .send({ username: 'testone', password: 'password'})
         .end(function(error, response) {
             done()
         })
