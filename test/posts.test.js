@@ -1,7 +1,7 @@
 const Post = require('../src/models/post')
-const post = { 
-    title: 'post title', 
-    url: 'https://www.makeschool.com', 
+const post = {
+    title: 'post title',
+    url: 'https://www.makeschool.com',
     summary: 'post summary'
 }
 
@@ -11,7 +11,7 @@ describe('Posts', () => {
             Post.find(function(error, posts){
                 var postCount = posts.count
                 const url = 'http://localhost:3000'
-    
+
                 chai
                     .request(url)
                     .post('/posts/new')

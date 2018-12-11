@@ -26,9 +26,8 @@ module.exports = app => {
                 .save()
                 .then(post => {
                     return User.findById
-                }) => {
-                return response.redirect(`/`)
-            })
+                })
+            return response.redirect(`/`)
         } else {
             return response.status(401) // Unauthorized
         }

@@ -1,5 +1,6 @@
 const User = require('../../models/user')
 const jwt = require('jsonwebtoken')
+const Post = require('../../models/post')
 
 module.exports = app => {
     app.get('/sign-up', (request, response ) => {
@@ -15,6 +16,17 @@ module.exports = app => {
         response.redirect(`/`)
     })
 
+    app.get('/', (request, response) => {
+        Post.find({})
+            .then(posts => {
+                console.log(posts)
+                response.render('posts-index', { posts })
+            })
+            .catch(error => {
+                console.log(error.message)
+        })
+    })
+
     app.post('/sign-up', (request, response) => {
         const user = new User(request.body)
 
@@ -22,6 +34,7 @@ module.exports = app => {
             .save()
             .then(user => {
                 const token = jwt.sign({ _id: user._id }, process.env.SECRET, { expiresIn: '60 days'})
+                console.log('token --> ', token)
                 response.cookie('nToken', token, { maxAge: 900000, httpOnly: true})
                 response.redirect(`/`)
             })
@@ -29,6 +42,10 @@ module.exports = app => {
                 console.log(error.message)
                 return response.status(400).send({ error })
             })
+
+        console.log('user --> ', user)
+
+
     })
 
     app.post('/login', (request, response) => {
@@ -38,20 +55,20 @@ module.exports = app => {
         User.findOne({ username }, 'username password')
             .then(user => {
                 if (!user) {
-                    return response.status(401).send({ message: 'Wrong username or password' })
+                    return response.status(401).send({ message: 'Wrong username or password1' })
                 }
 
                 user.comparePassword(password, (err, isMatch) => {
                     if (!isMatch) {
-                        return response.satus(401).send({ message: 'Wrong username or password' })
+                        return response.status(401).send({ message: 'Wrong username or password2' })
                     }
 
-                    const token = jwt.sign({ _id: user._id, username: user.username }, process.env.SECRET, { 
+                    const token = jwt.sign({ _id: user._id, username: user.username }, process.env.SECRET, {
                         expiresIn: '60 days'
                     })
-                    
+
                     response.cookie('nToken', token, { maxAge: 900000, httpOnly: true })
-                    response.redirect('/')
+                    response.redirect(`/`)
                 })
             })
             .catch(error => {
