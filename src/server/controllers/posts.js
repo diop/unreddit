@@ -6,7 +6,6 @@ module.exports = app => {
     app.get('/posts', (request, response) => {
         Post.find({})
             .then(posts => {
-                console.log(posts)
                 response.render('posts-index', { posts })
             })
             .catch(error => {
@@ -29,7 +28,6 @@ module.exports = app => {
                     return User.findById(request.user._id)
                 })
                 .then(user => {
-                    console.log(user);
                     user.posts.unshift(post)
                     user.save()
                     response.redirect(`/posts/` + post._id)

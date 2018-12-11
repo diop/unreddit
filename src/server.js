@@ -28,7 +28,6 @@ app.set('views', path.join(__dirname, 'views'))
 app.use(express.static(path.join(__dirname, 'public')))
 
 var checkAuth = (request, response, next) => {
-    console.log('Checking authentication')
     if (typeof request.cookies.nToken === 'undefined' || request.cookies.nToken === null) {
         request.user = null
     } else {
@@ -48,8 +47,6 @@ require('./server/controllers/comments')(app)
 
 app.get('/', (request, response) => {
     const currentUser = request.user
-
-    console.log('Current user --> ', currentUser)
 
     Post.find({})
         .then(posts => {

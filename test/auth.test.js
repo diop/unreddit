@@ -12,6 +12,7 @@ describe('User', function(){
     it('Should not be able to login if they have not registered', done => {
         agent.post('/login', { email: 'wrong@wrong.com', password: 'nope'}).end(function(error, response) {
             response.status.should.be.equal(401)
+            done()
         })
     })
 
@@ -23,7 +24,7 @@ describe('User', function(){
                 .send({ username: 'testone', password: 'password'})
                 .end(function(error, response) {
                     console.log(response.body)
-                    response.should.have.satus(200)
+                    response.should.have.status(200)
                     agent.should.have.cookie('nToken')
                     done()
                 })

@@ -43,6 +43,7 @@ describe('Posts', () => {
                     .catch(error => {
                         return done(error)
                     })
+                return done()
             })
         })
     })
