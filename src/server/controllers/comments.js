@@ -1,24 +1,12 @@
 const Post = require('../../models/post')
-const Comment = require('../../models/comment')
 
 module.exports = app => {
     app.post('/posts/:id/comments', (request, response) => {
-        const comment = new Comment(request.body)
+        Post.findById(request.params.postId).exec(function(error, post) {
+            post.comments.unshift(request.body)
+            post.save()
 
-        comment
-            .save()
-            .then(comment => {
-                return Post.findById(request.params.id)
-            })
-            .then(post => {
-                post.comments.unshift(comment)
-                return post.save()
-            })
-            .then(post => {
-                response.redirect(`/`)
-            })
-            .catch(error => {
-                console.log(error)
-            })
+            return response.redirect(`/posts` + post._id)
+        })
     })
 }

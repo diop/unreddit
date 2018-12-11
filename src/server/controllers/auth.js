@@ -23,7 +23,6 @@ module.exports = app => {
             .save()
             .then(user => {
                 const token = jwt.sign({ _id: user._id }, process.env.SECRET, { expiresIn: '60 days'})
-                console.log('token --> ', token)
                 response.cookie('nToken', token, { maxAge: 900000, httpOnly: true})
                 response.redirect(`/`)
             })
@@ -31,10 +30,6 @@ module.exports = app => {
                 console.log(error.message)
                 return response.status(400).send({ error })
             })
-
-        console.log('user --> ', user)
-
-
     })
 
     app.post('/login', (request, response) => {
