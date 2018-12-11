@@ -5,6 +5,15 @@ const post = {
     summary: 'post summary'
 }
 
+before(done => {
+    agent
+        .post('login')
+        .send({ username: testone, password: 'password'})
+        .end(function(error, response) {
+            done()
+        })
+})
+
 describe('Posts', () => {
     it('should create valid attibutes at POST /posts', done => {
         Post.findOneAndRemove(post, function() {
