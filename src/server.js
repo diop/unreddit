@@ -39,7 +39,7 @@ var checkAuth = (request, response, next) => {
     next()
 }
 
-// app.use(checkAuth)
+app.use(checkAuth)
 
 require('./data/unreddit-db')
 require('./server/controllers/auth')(app)
