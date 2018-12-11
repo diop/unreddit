@@ -49,6 +49,8 @@ require('./server/controllers/comments')(app)
 app.get('/', (request, response) => {
     const currentUser = request.user
 
+    console.log('Current user --> ', currentUser)
+
     Post.find({})
         .then(posts => {
             response.render('posts-index', { posts, currentUser })

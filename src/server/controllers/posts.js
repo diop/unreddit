@@ -26,12 +26,16 @@ module.exports = app => {
             post
                 .save()
                 .then(post => {
-                    return User.findById(request.user_id)
+                    return User.findById(request.user._id)
                 })
                 .then(user => {
+                    console.log(user);
                     user.posts.unshift(post)
                     user.save()
-                    response.redirect('/posts/' + post._id)
+                    response.redirect(`/posts/` + post._id)
+                })
+                .catch(error => {
+                    console.log(error)
                 })
         } else {
             return response.status(401) // Unauthorized
