@@ -14,8 +14,8 @@ const notFound = require('./server/notFound')
 
 const mongoose = require('mongoose')
 const schema = mongoose.Schema
-const Post = ('./models/post')
-const Comment = ('./models/comment')
+const Post = require('./models/post')
+const Comment = require('./models/comment')
 
 app.use(cookieParser())
 
@@ -47,17 +47,17 @@ require('./server/controllers/auth')(app)
 require('./server/controllers/posts')(app)
 require('./server/controllers/comments')(app)
 
-// app.get('/', (request, response) => {
-//     const currentUser = request.user
-//
-//     Post.find({})
-//         .then(posts => {
-//             response.render('posts-index', { posts, currentUser })
-//         })
-//         .catch(error => {
-//             console.log(error.message)
-//         })
-// })
+app.get('/', (request, response) => {
+    const currentUser = request.user
+
+    Post.find({})
+        .then(posts => {
+            response.render('posts-index', { posts, currentUser })
+        })
+        .catch(error => {
+            console.log(error.message)
+        })
+})
 
 app.listen(port, () => console.log(`Listening on port ${port}...`))
 
