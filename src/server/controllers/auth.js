@@ -55,12 +55,12 @@ module.exports = app => {
         User.findOne({ username }, 'username password')
             .then(user => {
                 if (!user) {
-                    return response.status(401).send({ message: 'Wrong username or password1' })
+                    return response.status(401).send({ message: 'Wrong username or password' })
                 }
 
                 user.comparePassword(password, (err, isMatch) => {
                     if (!isMatch) {
-                        return response.status(401).send({ message: 'Wrong username or password2' })
+                        return response.status(401).send({ message: 'Wrong username or password' })
                     }
 
                     const token = jwt.sign({ _id: user._id, username: user.username }, process.env.SECRET, {
