@@ -15,7 +15,6 @@ const notFound = require('./server/notFound')
 const mongoose = require('mongoose')
 const schema = mongoose.Schema
 const Post = require('./models/post')
-const Comment = require('./models/comment')
 
 app.use(cookieParser())
 
